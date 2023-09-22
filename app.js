@@ -25,12 +25,14 @@ function ready() {
 	for (let i = 0; i < removeCartButtons.length; i++) {
 		const button = removeCartButtons[i];
 		button.addEventListener("click", removeCartItem);
+		saveCartItme();
 	}
 	// Quantity change
 	const quantityInput = document.getElementsByClassName("cart-quantity");
 	for (let i = 0; i < quantityInput.length; i++) {
 		const button = quantityInput[i];
 		button.addEventListener("change", quantityChange);
+		saveCartItme();
 	}
 	// Add to Cart
 	const addCarts = document.getElementsByClassName("add-cart");
@@ -65,6 +67,7 @@ function addCartClicked(event) {
 	const productImg = shopProducts.getElementsByClassName("product-img")[0].src;
 	addProductToCart(title, price, productImg);
 	updateTotal();
+	saveCartItme();
 }
 
 function addProductToCart(title, price, productImg) {
@@ -96,6 +99,10 @@ function addProductToCart(title, price, productImg) {
 	cartShopBox
 		.getElementsByClassName("cart-remove")[0]
 		.addEventListener("click", removeCartItem);
+
+	cartShopBox
+		.getElementsByClassName("cart-quantity")[0]
+		.addEventListener("change", quantityChange);
 }
 
 //  Update Total
@@ -115,6 +122,29 @@ function updateTotal() {
 	// If price contain some cents
 	total = Math.round(total * 100) / 100;
 	document.getElementsByClassName("total-price")[0].innerText = "$" + total;
+	localStorage.setItem("cartTotal", total);
 }
 
-//
+// LocalStorage
+function saveCartItme() {
+	const cartContent = document.getElementsByClassName("cart-content")[0];
+	const cartBoxes = cartContent.getElementsByClassName("cart-box");
+	let cartItems = [];
+	for (let i = 0; i < cartBoxes.length; i++) {
+		const cartBox = cartBoxes[i];
+		const titleElement =
+			cartBox.getElementsByClassName("cart-product-title")[0];
+		const priceElement = cartBox.getElementsByClassName("cart-price")[0];
+		const quantityElement = cartBox.getElementsByClassName("cart-quantity")[0];
+		const productImg = cartBox.getElementsByClassName("cart-img")[0].src;
+
+		const item = {
+			title: titleElement.innerText,
+			price: priceElement.innerText,
+			quantity: quantityElement.value,
+			productImg: productImg,
+		};
+		cartItems.push(item);
+	}
+	localStorage.setItem("cartItems", JSON.stringify(cartItems));
+}
