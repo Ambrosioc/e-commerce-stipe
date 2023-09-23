@@ -148,3 +148,25 @@ function saveCartItme() {
 	}
 	localStorage.setItem("cartItems", JSON.stringify(cartItems));
 }
+//  Loads In cart
+function loadCartItems() {
+	const cartItems = localStorage.getItem(cartItems);
+	if (cartItems) {
+		cartItems = JSON.parse(cartItems);
+
+		for (leti = 0; i < cartItems.length; i++) {
+			const item = cartItems[i];
+			addProductToCart(item.title, item.price, item.productImg);
+
+			const cartBoxes = document.getElementsByClassName("car-box");
+			const cartBoxe = cartBoxes[cartBoxes.length - 1];
+			const quantityElement =
+				cartBoxe.getElementsByClassName("cart-quantity")[0];
+			quantityElement.value = item.quantity;
+		}
+	}
+	const cartTotal = localStorage.getItem("catTotal");
+	if (cartTotal) {
+		document.getElementsByClassName("total-price")[0].innerText;
+	}
+}
