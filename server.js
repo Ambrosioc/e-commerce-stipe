@@ -25,7 +25,7 @@ app.get("/cancel", (req, res) => {
 });
 
 // Stripe
-let stripeGateway = stripe(process.env.stripe_api);
+let stripeGateway = stripe(process.env.STRIPE_API_KEY);
 let DOMAIN = process.env.DOMAIN;
 
 app.post("/stripe-checkout", async (req, res) => {
