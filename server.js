@@ -29,7 +29,7 @@ let stripeGateway = stripe(process.env.STRIPE_API_KEY);
 let DOMAIN = process.env.DOMAIN;
 
 app.post("/stripe-checkout", async (req, res) => {
-	const lineItems = req.body.items.map((item) => {
+	const checkoutItems = req.body.items.map((item) => {
 		const unitAmount = parseInt(item.price.replace(/[^0-9.-]+/g, "") * 100);
 		console.log(item.title, item.price, item.productImg);
 		console.log("unitAmount:", unitAmount);
@@ -45,7 +45,7 @@ app.post("/stripe-checkout", async (req, res) => {
 			quantity: item.quantity,
 		};
 	});
-	console.log(lineItems);
+	console.log(checkoutItems);
 
 	// Create checkout session
 	const session = await stripeGateway.checkout.sessions.create({
@@ -53,7 +53,7 @@ app.post("/stripe-checkout", async (req, res) => {
 		mode: "payment",
 		success_url: `${DOMAIN}/success`,
 		cancel_url: `${DOMAIN}/cancel`,
-		line_items: lineItems,
+		line_items: checkoutItems,
 		// Asking adress in stripe checkout page
 		billing_address_collection: "required",
 	});
