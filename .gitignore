@@ -1,2 +1,5 @@
 # local files
 .env
+
+# node_modules
+node_modules
