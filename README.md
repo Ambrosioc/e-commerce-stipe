@@ -22,8 +22,7 @@ Ce projet est une application de e-commerce interactive développée en JavaScri
 
 1. Clonez ce dépôt sur votre machine locale.
 2. Installez les dépendances en utilisant la commande `npm install`.
-3. Configurez Stripe avec vos clés API dans le fichier `config.js`.
-4. Lancez l'application avec la commande `npm start`.
+3. Lancez l'application avec la commande `npm start`.
 
 ## Ressources Utilisées
 
