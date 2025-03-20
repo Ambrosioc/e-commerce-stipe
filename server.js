@@ -1,5 +1,5 @@
-import express from "express";
 import dotenv from "dotenv";
+import express from "express";
 import stripe from "stripe";
 
 // Load variable
@@ -25,7 +25,7 @@ app.get("/cancel", (req, res) => {
 });
 
 // Stripe
-let stripeGateway = stripe(process.env.STRIPE_API_KEY);
+let stripeGateway = stripe(process.env.STRIPE_WEBHOOK_SECRET);
 let DOMAIN = process.env.DOMAIN;
 
 app.post("/stripe-checkout", async (req, res) => {
